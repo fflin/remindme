@@ -4,12 +4,15 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
+  // mode: 'renderer',
+  // base: '/',
   routes: [
     // {
-    //   path: '/',
-    //   name: 'calendar.vue',
-    //   component: require('../components/calendar').default
-    // },
+    //   path: 'notice',
+    //   name: '计时提醒',
+    //   components: notice,
+    //   style: {}
+    // }
     // {
     //   path: '/page1',
     //   name: 'page1',

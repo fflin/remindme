@@ -105,6 +105,7 @@
 </template>
 
 <script>
+  import { ipcRenderer } from 'electron'
   const common = require('../../util/common')
   const moment = require('moment')
   const db = require('../../db/remindDB')
@@ -220,7 +221,8 @@
         }
       },
       showLocalWindow (task) {
-        alert('时间到！！！！！')
+        console.log('时间到！！！！！')
+        ipcRenderer.send('startShark')
       },
       getMillByTime (time) {
         return Date.parse(time)

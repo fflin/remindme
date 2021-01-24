@@ -1,7 +1,7 @@
 {
-  "name": "to-do",
+  "name": "fangBianQian",
   "version": "0.0.1",
-  "author": "蒋领 <ling.jiang.1011@gmail.com>",
+  "author": "fflin <529856617@qq.com>",
   "description": "An reminder APP by electron-vue",
   "license": "",
   "main": "./dist/electron/main.js",
@@ -22,8 +22,8 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "To-Do powered by JL",
-    "appId": "com.jl.remind",
+    "productName": "fangBianQian by fflin",
+    "appId": "com.fflin.remind",
     "directories": {
       "output": "build"
     },

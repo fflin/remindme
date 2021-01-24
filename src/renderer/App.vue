@@ -1,4 +1,5 @@
 <template>
+<!--  这里表示主窗口需要加载的页面-->
     <div id="app">
         <calendar ref="calendar"></calendar>
         <task ref="task"></task>
