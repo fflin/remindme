@@ -23,6 +23,15 @@
                     </b-form-radio>
                 </b-form-group>
 
+              <b-form-group label="" v-show="task.settingPlan">
+                <b>是否计时提醒:</b><br>
+                <b-form-radio v-model="task.plan.notice" name="plan-notice" value='true' :disabled="task.notice">开启提醒
+                </b-form-radio>
+                <b-form-radio v-model="task.plan.notice" name="plan-notice" value='false' :disabled="task.notice">
+                  不开启提醒
+                </b-form-radio>
+              </b-form-group>
+
                 <b-container fluid v-show="task.settingPlan && task.plan.type==='once'">
                     <b-row class="b-row">
                         <label style="width: 60px">日期:</label>
@@ -158,6 +167,10 @@
               })
               // 添加为计划后从我的任务列表中删除
               this.$parent.$refs.task.removeItem(this.taskIndex)
+              if (this.task.plan.notice) {
+                alert('开始计时')
+                this.startTimeDown(this.task)
+              }
               this.task = null
             }
           }
@@ -189,6 +202,28 @@
           }
         }
         this.reloadCalendarTaskList()
+      },
+      startTimeDown (task) {
+        var nowMill = this.getMillByTime(new Date())
+        var planMill = this.getMillByTime(task.plan.date + ' ' + task.plan.time)
+        var timeDiff = (planMill - nowMill) / 1000
+        console.log('nowMill' + nowMill + 'timeDiff = ' + timeDiff + 'planMill = ' + planMill)
+        if (timeDiff > 0) {
+          var res = setInterval(() => {
+            timeDiff -= 1
+            console.log('timeDiff' + timeDiff)
+            if (timeDiff === 0) {
+              this.showLocalWindow(task)
+              clearInterval(res)
+            }
+          }, 1000)
+        }
+      },
+      showLocalWindow (task) {
+        alert('时间到！！！！！')
+      },
+      getMillByTime (time) {
+        return Date.parse(time)
       },
       editText () {
         const that = this
