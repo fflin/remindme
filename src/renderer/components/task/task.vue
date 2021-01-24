@@ -3,6 +3,7 @@
         <b-nav tabs fill>
             <b-nav-item @click="tab=1" :active="tab===1"><b>我的任务(仅便签)</b></b-nav-item>
             <b-nav-item @click="tab=2" :active="tab===2"><b>今日计划(便签+提醒)</b></b-nav-item>
+            <b-nav-item @click="tab=3" :active="tab===3"><b>今日已完成(便签+提醒)</b></b-nav-item>
         </b-nav>
         <task-list v-show="tab===1" :isPlannedList="false" :task-list="taskList"></task-list>
         <task-list v-show="tab===2" :isPlannedList="true" :task-list="taskList"></task-list>
@@ -32,9 +33,15 @@
     methods: {
       loadData (tab) {
         const that = this
-        dbUtil.listTasksByDate(moment().format('YYYYMMDD'), tab === 2, function (data) {
-          that.taskList = data
-        })
+        if (tab === 1 || tab === 2) {
+          dbUtil.listTasksByDate(moment().format('YYYYMMDD'), tab === 2, function (data) {
+            that.taskList = data
+          })
+        } else {
+          dbUtil.getFinishedData(moment().format('YYYYMMDD'), tab === 3, function (data) {
+            that.taskList = data
+          })
+        }
       },
       removeItem (index) {
         this.taskList.splice(index, 1)

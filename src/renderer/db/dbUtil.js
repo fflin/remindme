@@ -50,3 +50,29 @@ export const listTasksByDate = function (date, planned, callback) {
     callback(list)
   })
 }
+
+
+export const getFinishedData = function (date, planned, callback) {
+  // eslint-disable-next-line handle-callback-err
+  db.find({planned: planned}, function (err, docs) {
+    let list = []
+    const sortedDocs = docs.sort(function (a, b) {
+      return parseInt(b.createTime) - parseInt(a.createTime)
+    })
+    if (!planned) {
+      list = sortedDocs
+    } else {
+      // 筛选出指定日期的任务
+      for (const sortedDoc of sortedDocs) {
+        const createDate = parseInt(sortedDoc.createTime.substr(0, 8))
+        const planFinished = sortedDoc.plan.finished
+        const finishDate = sortedDoc.plan.finishDate
+        // 已经结束的并且结束时间在选择时间之前的任务保留
+        if (planFinished && (parseInt(date) > parseInt(finishDate))) {
+          list.push(sortedDoc)
+        }
+      }
+    }
+    callback(list)
+  })
+}
