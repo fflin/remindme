@@ -1,5 +1,6 @@
 'use strict'
 
+// eslint-disable-next-line standard/object-curly-even-spacing
 import {app, BrowserWindow, Tray, Menu, ipcMain } from 'electron'
 
 const path = require('path')
@@ -44,45 +45,43 @@ function createWindow () {
       tray.displayBalloon({
         title: '方便签',
         content: '程序已最小化到系统托盘！',
-        icon: path.join(envPath.staticPath, 'static/icons/iconpng')
+        icon: path.join(envPath.staticPath, 'static/icons/icon.png')
       })
       return false
     }
   })
-
-  mainWindow.flashFrame(true)
-  let appIcon = new Tray('../static/icons/icon.png')
 
   // 设置系统托盘
   tray = new Tray(path.join(envPath.staticPath, 'static/icons/icon.png'))
   const contextMenu = Menu.buildFromTemplate([
     {label: '打开窗口', type: 'normal', click: () => mainWindow.show()},
     {
-      label: '退出程序1',
+      label: '退出程序',
       type: 'normal',
       click: () => {
         app.isQuiting = true
         app.quit()
       }
-    },
-    {
-      label: '移除',
-      click: function () {
-        event.sender.send('tray-removed')
-      }
-    },
-    {
-      type: 'separator'
-    }, {
-      label: 'Item1',
-      type: 'radio'
-    }, {
-      type: 'separator'
-    }, {
-      label: 'MenuItem2',
-      type: 'checkbox',
-      checked: true
     }
+    // ,
+    // {
+    //   label: '移除',
+    //   click: function () {
+    //     event.sender.send('tray-removed')
+    //   }
+    // },
+    // {
+    //   type: 'separator'
+    // }, {
+    //   label: 'Item1',
+    //   type: 'radio'
+    // }, {
+    //   type: 'separator'
+    // }, {
+    //   label: 'MenuItem2',
+    //   type: 'checkbox',
+    //   checked: true
+    // }
   ])
   tray.setToolTip('方便签')
   tray.setContextMenu(contextMenu)
@@ -91,6 +90,7 @@ function createWindow () {
   })
   contextMenu.items[2].checked = false
 
+  let appIcon = tray.iconPath
   appIcon.setContextMenu(contextMenu)
 
   var count = 0
@@ -113,6 +113,7 @@ function createWindow () {
   } */
 
   ipcMain.on('startShark', setInterval(function () {
+    console.log('!!!!!!!!!!!!!!!!!!!!!')
     if (count++ % 2 === 0) {
       appIcon.setImage(path.join(__dirname, '../static/icons/icon.png'))
     } else {
