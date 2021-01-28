@@ -170,7 +170,6 @@
               this.$parent.$refs.task.removeItem(this.taskIndex)
               if (this.task.plan.notice) {
                 alert('开始计时')
-                ipcRenderer.send('showNotice')
                 this.startTimeDown(this.task)
               }
               this.task = null
@@ -223,7 +222,7 @@
       },
       showLocalWindow (task) {
         console.log('时间到！！！！！')
-        // ipcRenderer.sendTo(1, 'showNotice')
+        ipcRenderer.send('showNotice')
         console.log('时间到！！！！！--------')
       },
       getMillByTime (time) {

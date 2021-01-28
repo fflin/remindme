@@ -16,6 +16,7 @@ if (process.env.NODE_ENV !== 'development') {
 
 let mainWindow
 let tray
+let v
 
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
@@ -31,9 +32,6 @@ function createWindow () {
     useContentSize: true
   })
 
-  console.log('0000000000')
-  console.log('11--' + mainWindow.webContents.id)
-  console.log('222222222')
   mainWindow.loadURL(winURL)
 
   mainWindow.on('closed', () => {
@@ -54,7 +52,10 @@ function createWindow () {
     }
   })
   // 设置系统托盘
-  tray = new Tray(path.join(envPath.staticPath, 'static/icons/icon.png'))
+  // tray = new Tray(path.join(envPath.staticPath, 'static/icons/icon.png'))
+  // const Tray = electron.Tray
+  var trayIcon = path.join(__dirname, 'icons')
+  tray = new Tray(path.join(trayIcon, 'icon.png'))
   const contextMenu = Menu.buildFromTemplate([
     {
       label: '打开窗口',
@@ -76,17 +77,19 @@ function createWindow () {
   tray.setToolTip('方便签')
   tray.setContextMenu(contextMenu)
   tray.on('double-click', function () {
+    if (v != null) {
+      clearInterval(v)
+    }
     mainWindow.show()
   })
 
-  let appIcon = tray
-  appIcon.setContextMenu(contextMenu)
+  tray.setContextMenu(contextMenu)
 
   var count = 0
 
   // 创建提醒窗口
   function showNotice () {
-    console.log('!!!!!!!!!!!!!!!!!!!!!')
+    console.log('!!!!!!!!!!!!!!!!!!!!!111')
     // var noticeWin = new BrowserWindow({
     //   width: 0,
     //   height: 0,
@@ -100,13 +103,13 @@ function createWindow () {
     // noticeWin.loadURL('https://bilibili.com/')
     // // noticeWin.loadFile('../renderer/components/notice/notice.vue')
     // noticeWin.on('closed', () => { noticeWin = null })
-    setInterval(function () {
+    v = setInterval(function () {
       console.log('!!!!!!!!!!!!!!!!!!!!!')
+      // appIcon.path = path.join(__dirname, 'lufi.ico')
       if (count++ % 2 === 0) {
-        appIcon.path = path.join(__dirname, 'static/icons/icon.png')
-        // appIcon.setImage(path.join(__dirname, 'static/icons/icon.png'))
+        tray.setImage(path.join(trayIcon, 'icon.png'))
       } else {
-        appIcon.path = path.join(__dirname, 'static/icons/icon_trans.png')
+        tray.setImage(path.join(trayIcon, 'icon_trans.png'))
         // appIcon.setImage(path.join(__dirname, 'static/icons/icon_trans.png'))
       }
     }, 400)
