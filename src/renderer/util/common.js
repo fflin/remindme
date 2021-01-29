@@ -13,7 +13,8 @@ const plan = function () {
     date: moment().format('YYYY-MM-DD'), // 单次计划的日期
     time: moment().format('HH:mm'), // 单次计划和周期计划的时间
     // state中key为YYYYMMDD格式的日期字符串，value默认为{finished: false, expired: false, finishTime: ''}
-    state: {}
+    state: {},
+    finishTime: 0
   }
 }
 

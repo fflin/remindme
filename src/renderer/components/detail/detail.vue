@@ -23,7 +23,7 @@
                     </b-form-radio>
                 </b-form-group>
 
-              <b-form-group label="" v-show="task.settingPlan">
+              <b-form-group label="" v-show="task.settingPlan && task.plan.type==='once'">
                 <b>是否计时提醒:</b><br>
                 <b-form-radio v-model="task.plan.notice" name="plan-notice" value='true' :disabled="task.notice">开启提醒
                 </b-form-radio>
@@ -163,7 +163,8 @@
                   planned: true,
                   'plan.type': 'once',
                   'plan.date': date,
-                  'plan.time': time
+                  'plan.time': time,
+                  'plan.finishTime': 0
                 }
               })
               // 添加为计划后从我的任务列表中删除
@@ -222,8 +223,10 @@
       },
       showLocalWindow (task) {
         console.log('时间到！！！！！')
+        task.plan.finished = true
+        task.plan.finishTime = moment().format('YYYYMMDD')
         ipcRenderer.send('showNotice')
-        console.log('时间到！！！！！--------')
+        console.log('时间到！！！！！-------- ')
       },
       getMillByTime (time) {
         return Date.parse(time)

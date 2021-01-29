@@ -7,6 +7,7 @@
         </b-nav>
         <task-list v-show="tab===1" :isPlannedList="false" :task-list="taskList"></task-list>
         <task-list v-show="tab===2" :isPlannedList="true" :task-list="taskList"></task-list>
+        <task-list v-show="tab===3" :isPlannedList="true" :task-list="taskList"></task-list>
     </div>
 </template>
 
