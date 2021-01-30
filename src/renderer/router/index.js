@@ -8,19 +8,16 @@ export default new Router({
   // base: '/',
   routes: [
     // {
-    //   path: 'notice',
-    //   name: '计时提醒',
-    //   components: notice,
-    //   style: {}
-    // }
-    // {
-    //   path: '/page1',
-    //   name: 'page1',
-    //   component: require('../components/page').default
+    //   path: '/App',
+    //   name: 'App',
+    //   // component: require('../components/LandingPage').default
+    //   component: () => import('../App')
     // },
     // {
-    //   path: '*',
-    //   redirect: '/'
+    //   path: '/landing',
+    //   name: 'landing',
+    //   // component: require('../components/LandingPage').default
+    //   component: () => import('../components/detail/Landing')
     // }
   ]
 })
