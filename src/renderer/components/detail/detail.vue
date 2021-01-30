@@ -109,6 +109,7 @@
   const common = require('../../util/common')
   const moment = require('moment')
   const db = require('../../db/remindDB')
+  const util = require('../../util/window_util')
 
   export default {
     name: 'detail',
@@ -227,6 +228,26 @@
         task.plan.finishTime = moment().format('YYYYMMDD')
         ipcRenderer.send('showNotice')
         console.log('时间到！！！！！-------- ')
+        this.openWin('bottomRightToleft')
+      },
+      async openWin (type) {
+        let _config = {
+          width: 300,
+          height: 300,
+          x: 0,
+          y: 0,
+          windowConfig: {
+            router: '/landing',
+            name: type,
+            data: ''
+          }
+        }
+
+        let config = util[type](_config)
+
+        console.log(config)
+
+        this.$Win.openWin(config)
       },
       getMillByTime (time) {
         return Date.parse(time)
