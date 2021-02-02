@@ -222,7 +222,7 @@
         }
       },
       showLocalWindow (task) {
-        console.log('时间到！！！！！')
+        console.log('时间到！！！！')
         task.plan.finished = true
         task.plan.finishTime = moment().format('YYYYMMDD')
         ipcRenderer.send('showNotice')
