@@ -14,3 +14,7 @@ cnpm install electron-packager -g
 electron-packager .
 
 参考：https://blog.csdn.net/fukaiit/article/details/90964319
+
+#窗口参考链接
+
+https://github.com/zsj975516/electron-window-util
