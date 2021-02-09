@@ -18,3 +18,9 @@ electron-packager .
 #窗口参考链接
 
 https://github.com/zsj975516/electron-window-util
+
+#项目展示
+![avatar](home.png)
+![avatar](add.png)
+![avatar](info.png)
+![avatar](list.png)
